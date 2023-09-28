@@ -2,14 +2,14 @@ version: 2.1
 jobs:
   lint-dockerfile:
     docker:
-    - image: hadolint/hadolint:latest-debian
+    - image: cimg/base
     steps:
     - checkout
     - setup_remote_docker
     - run:
         name: Lint Dockerfile menggunakan hadolint
         command: |
-          hadolint Dockerfile
+          docker run --rm -i ghcr.io/hadolint/hadolint < Dockerfile
 
   test-app:
     docker:
@@ -24,7 +24,7 @@ jobs:
 
   build-app-karsajobs:
     docker:
-    - image: cimg/go:1.15.15
+    - image: cimg/base
     steps:
     - checkout
     - setup_remote_docker
