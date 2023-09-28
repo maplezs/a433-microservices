@@ -1,0 +1,41 @@
+version: 2.1
+jobs:
+  lint-dockerfile:
+    docker:
+    - image: hadolint/hadolint:latest-debian
+    steps:
+    - checkout
+    - setup_remote_docker
+    - run:
+        name: Lint Dockerfile menggunakan hadolint
+        command: |
+          hadolint Dockerfile
+
+  test-app:
+    docker:
+    - image: cimg/go:1.15.15
+    steps:
+    - checkout
+    - setup_remote_docker
+    - run:
+        name: menjalankan unit test untuk aplikasi backend
+        command: |
+          go test -v -short --count=1 $(go list ./...)
+
+  build-app-karsajobs:
+    docker:
+    - image: cimg/go:1.15.15
+    steps:
+    - checkout
+    - setup_remote_docker
+    - run:
+        name: build lalu push image ke Github Packages Container Registry
+        command: |
+          ./build_push_image_karsajobs.sh
+  
+workflows:
+  karsajobs-ci:
+    jobs:
+    - lint-dockerfile
+    - test-app
+    - build-app-karsajobs
