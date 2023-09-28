@@ -30,8 +30,8 @@ jobs:
         name: build lalu push image ke Github Packages Container Registry
         # tambah permission execute pada file sebelum eksekusi file
         command: |
-          chmod +x build_push_image_karsajobs.sh
-          ./build_push_image_karsajobs.sh
+          chmod +x build_push_image_karsajobs_ui.sh
+          ./build_push_image_karsajobs_ui.sh
 
 # mengatur urutan eksekusi jobs 
 workflows:
