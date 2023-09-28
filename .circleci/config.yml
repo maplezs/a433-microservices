@@ -31,6 +31,7 @@ jobs:
     - run:
         name: build lalu push image ke Github Packages Container Registry
         command: |
+          chmod +x build_push_image_karsajobs.sh
           ./build_push_image_karsajobs.sh
   
 workflows:
