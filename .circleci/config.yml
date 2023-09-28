@@ -1,0 +1,42 @@
+version: 2.1
+jobs:
+  # jobs untuk lint Dockerfile
+  lint-dockerfile:
+   # menggunakan docker execution environment
+    docker:
+    # image base dari circleci base image ubuntu yang dapat menjalankan docker
+    - image: cimg/base:current
+    steps:
+     # checkout source code
+    - checkout
+    # menjalankan docker command pada remote environment CircleCI
+    - setup_remote_docker
+    - run:
+        name: Lint Dockerfile menggunakan hadolint
+        command: |
+          docker run --rm -i ghcr.io/hadolint/hadolint < Dockerfile
+
+  # jobs untuk build dan push image
+  build-app-karsajobs-ui:
+    # menggunakan docker execution environment
+    docker:
+    - image: cimg/base:current
+    steps:
+    # checkout source code
+    - checkout
+    # menjalankan docker command pada remote environment CircleCI
+    - setup_remote_docker
+    - run:
+        name: build lalu push image ke Github Packages Container Registry
+        # tambah permission execute pada file sebelum eksekusi file
+        command: |
+          chmod +x build_push_image_karsajobs.sh
+          ./build_push_image_karsajobs.sh
+
+# mengatur urutan eksekusi jobs 
+workflows:
+# nama workflow
+  karsajobs-ci:
+    jobs:
+    - lint-dockerfile
+    - build-app-karsajobs-ui
