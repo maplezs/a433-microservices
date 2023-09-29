@@ -11,6 +11,7 @@ jobs:
     - checkout
     # menjalankan docker command pada remote environment CircleCI
     - setup_remote_docker
+    # melakukan lint Dockerfile dengan menggunakan docker image hadolint
     - run:
         name: Lint Dockerfile menggunakan hadolint
         command: |
