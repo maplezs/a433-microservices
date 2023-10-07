@@ -6,9 +6,9 @@ WORKDIR /app
 COPY . .
 # atur environment variabel 
 ENV PORT=3000
-# install package menggunakan root privilege dan melakukan build
+# install package yang dibutuhkan
 RUN npm install
-# expose port 3001
+# expose port 3000
 EXPOSE 3000
 # command yang akan berjalan saat run container 
 CMD ["npm", "start"]
