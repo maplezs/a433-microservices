@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 # atur environment variabel 
 ENV PORT=3001
-# install package menggunakan root privilege dan melakukan build
+# install package yang dibutuhkan
 RUN npm install
 # expose port 3001
 EXPOSE 3001
